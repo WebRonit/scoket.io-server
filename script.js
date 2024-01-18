@@ -1,4 +1,4 @@
-const socket = io("http://localhost:3000") //https://webchats1.netlify.app
+const socket = io("https://webronit.github.io/simple-chat-room") //https://webchats1.netlify.app
 
 const form  = document.getElementById('msg-form');
 const msgInp  = document.getElementById('inp');
