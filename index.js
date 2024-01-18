@@ -1,6 +1,7 @@
 const io = require('socket.io')(process.env.PORT, {
     cors: {
-        origin: "*"
+        origin: "https://chatsroom.vercel.app",
+        methods: ["GET", "POST"]
     }
 }); //https://webchats1.netlify.app
 
