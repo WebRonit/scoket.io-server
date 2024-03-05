@@ -6,7 +6,7 @@ const io = require('socket.io')(process.env.PORT || 3000, {
 }); 
 
 const users = {}
-const MAX_USER = 2;
+const MAX_USER = 5;
 let connectedUsers = 0;
 
 io.on('connection', socket => {
@@ -15,16 +15,18 @@ io.on('connection', socket => {
 
     if(connectedUsers <= MAX_USER){
 
-         socket.on('newUserJoined', name => {
-         console.log("User joined: ", name);
-         console.log("number of users:", connectedUsers);
-         users[socket.id] = name;
-         socket.broadcast.emit("userJoined", name);
+        socket.on('newUserJoined', name => {
+          console.log("User joined: ", name);
+          console.log("number of users:", connectedUsers);
+          users[socket.id] = name;
+          socket.broadcast.emit("userJoined", name);
       });
 
-      socket.on('disconnect', () =>{
-         connectedUsers--;
-         console.log(`User disconnected. Total users: ${connectedUsers}`);
+        socket.on('disconnect', () =>{
+          connectedUsers--;
+          name = users[socket.id];
+          socket.broadcast.emit('userLeft', name);
+          console.log(`${name} disconnected. Total users: ${connectedUsers}`);
       })
     }
 
